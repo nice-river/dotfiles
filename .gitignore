@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+*.tmp
+
+# nvim runtime/cache/state 不应该放配置仓库
+nvim/.config/nvim/.netrwhist
+nvim/.config/nvim/plugin/
+nvim/.config/nvim/spell/*.add.spl
