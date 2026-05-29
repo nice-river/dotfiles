@@ -1,13 +1,20 @@
 return {
   "nvim-tree/nvim-tree.lua",
   version = "*",
-  cmd = {
-    "NvimTreeToggle",
-    "NvimTreeOpen",
-    "NvimTreeClose",
-    "NvimTreeFocus",
-    "NvimTreeFindFile",
-  },
+
+  -- in order to replace `netrw`
+  lazy = false,
+
+  -- It is strongly recommended to disable |netrw|. As it is a bundled plugin it
+  -- must be disabled manually at the start of your `init.lua` as per |netrw-noload|:
+  --   vim.g.loaded_netrw       = 1
+  --   vim.g.loaded_netrwPlugin = 1
+  init = function()
+    -- forbid `netrw` load
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+  end,
+
   keys = {
     { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
     { "<leader>E", "<cmd>NvimTreeFindFile<cr>", desc = "Explorer Find File" },
@@ -16,6 +23,14 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   opts = {
+    disable_netrw = true,
+    hijack_netrw = true,
+
+    hijack_directories = {
+      enable = true,
+      auto_open = true,
+    },
+
     view = {
       width = 32,
       side = "right",
