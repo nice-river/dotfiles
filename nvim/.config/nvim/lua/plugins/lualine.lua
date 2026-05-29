@@ -22,7 +22,6 @@ return {
       lualine_b = {
         "branch",
         "diff",
-        "diagnostics",
       },
       lualine_c = {
         {
@@ -32,6 +31,7 @@ return {
       },
       lualine_x = {
         "encoding",
+        "diagnostics",
         "filetype",
       },
       lualine_y = {

@@ -5,6 +5,7 @@ return {
   -- or if using mini.icons/mini.nvim
   -- dependencies = { "nvim-mini/mini.icons" },
   cmd = "FzfLua",
+  -- event = "VeryLazy",
   keys = {
     { "<leader>sf", "<cmd>FzfLua files<cr>", desc = "Search Files" },
     { "<leader>sg", "<cmd>FzfLua live_grep<cr>", desc = "Search Grep" },
@@ -55,4 +56,8 @@ return {
       follow = true,
     },
   },
+  config = function(_, opts)
+    require("fzf-lua").setup(opts)
+    require("fzf-lua").register_ui_select()
+  end,
 }

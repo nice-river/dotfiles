@@ -2,6 +2,7 @@ local M = {}
 
 M.servers = {
   emmylua_ls = require("config.lsp.emmylua_ls"),
+  rust_analyzer = require("config.lsp.rust_analyzer"),
 }
 
 function M.on_attach()
@@ -9,6 +10,13 @@ function M.on_attach()
     group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
     callback = function(args)
       local bufnr = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+      if client and client:supports_method("textDocument/inlayHint") then
+        vim.lsp.inlay_hint.enable(true, {
+          bufnr = bufnr,
+        })
+      end
 
       local map = function(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, {

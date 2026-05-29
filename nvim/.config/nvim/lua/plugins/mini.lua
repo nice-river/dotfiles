@@ -60,7 +60,36 @@ return {
       {
         "<leader>ps",
         function()
-          require("mini.sessions").select()
+          local sessions = require("mini.sessions")
+          local fzf = require("fzf-lua")
+
+          local names = vim.tbl_keys(sessions.detected)
+          if vim.tbl_isempty(names) then
+            vim.notify("No sessions found", vim.log.levels.WARN)
+            return
+          end
+
+          table.sort(names)
+          local entries = {}
+          for i, name in ipairs(names) do
+            entries[i] = string.format("%2d  %s", i, name)
+          end
+
+          fzf.fzf_exec(entries, {
+            prompt = "Sessions> ",
+            actions = {
+              ["default"] = function(selected)
+                local line = selected[1]
+                if not line then
+                  return
+                end
+                local name = line:match("^%s*%d+%s+(.+)$")
+                if name then
+                  sessions.read(name)
+                end
+              end,
+            },
+          })
         end,
         desc = "Select session",
       },
@@ -95,5 +124,38 @@ return {
         desc = "Delete session",
       },
     },
+  },
+  {
+    "nvim-mini/mini.indentscope",
+    version = false,
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("mini.indentscope").setup({
+        symbol = "│",
+        draw = {
+          delay = 100,
+          animation = require("mini.indentscope").gen_animation.none(),
+        },
+        options = {
+          try_as_border = true,
+        },
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("DisableMiniIndentscope", { clear = true }),
+        pattern = {
+          "help",
+          "lazy",
+          "mason",
+          "NvimTree",
+          "fzf",
+          "fzf-lua",
+          "Trouble",
+        },
+        callback = function(args)
+          vim.b[args.buf].miniindentscope_disable = true
+        end,
+      })
+    end,
   },
 }

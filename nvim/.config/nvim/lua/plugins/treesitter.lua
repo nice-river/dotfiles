@@ -11,10 +11,12 @@ return {
         if not lang then
           return
         end
-
         pcall(vim.treesitter.start, args.buf, lang)
         vim.bo[args.buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
       end,
     })
+    vim.opt.foldmethod = "expr"
+    vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.opt.foldenable = false
   end,
 }
