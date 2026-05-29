@@ -10,5 +10,6 @@ alias ls='eza -lh --icons'
 alias ll='eza -lh --icons'
 alias la='eza -lah --icons'
 alias dotfiles="cd ~/.config/dotfiles/"
+export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
 
 starship init fish | source
