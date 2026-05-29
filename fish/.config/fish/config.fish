@@ -2,6 +2,9 @@ if status is-interactive
 # Commands to run in interactive sessions can go here
 end
 
+bind up up-or-prefix-search
+bind down down-or-prefix-search
+
 if test (uname) = Darwin
   /opt/homebrew/bin/brew shellenv | source
 end
