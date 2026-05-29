@@ -3,6 +3,7 @@ local M = {}
 M.servers = {
   emmylua_ls = require("config.lsp.emmylua_ls"),
   rust_analyzer = require("config.lsp.rust_analyzer"),
+  basedpyright = require("config.lsp.basedpyright"),
 }
 
 function M.on_attach()
