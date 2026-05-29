@@ -4,5 +4,5 @@ end
 
 alias ls='eza -lah --icons'
 alias ll='eza -lah --icons'
-alias la='eza -a --icons'
+alias la='eza -lah --icons'
 starship init fish | source
