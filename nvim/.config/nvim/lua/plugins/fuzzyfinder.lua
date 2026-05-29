@@ -8,7 +8,7 @@ return {
   -- event = "VeryLazy",
   keys = {
     { "<leader>sf", "<cmd>FzfLua files<cr>", desc = "Search Files" },
-    { "<leader>sg", "<cmd>FzfLua live_grep<cr>", desc = "Search Grep" },
+    { "<leader>sg", "<cmd>FzfLua grep_project<cr>", desc = "Search Grep" },
     { "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "Search Buffers" },
     { "<leader>sh", "<cmd>FzfLua help_tags<cr>", desc = "Search Help Tags" },
     { "<leader>sr", "<cmd>FzfLua oldfiles<cr>", desc = "Search Recent Files" },
@@ -34,6 +34,8 @@ return {
         ["ctrl-k"] = "up",
         ["shift-down"] = "preview-page-down",
         ["shift-up"] = "preview-page-up",
+        ["alt-p"] = "previous-history",
+        ["alt-n"] = "next-history",
       },
     },
     winopts = {
@@ -50,10 +52,24 @@ return {
     files = {
       hidden = true,
       follow = true,
+      fzf_opts = {
+        ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-files-history",
+        ["--history-size"] = "1000",
+      },
     },
     grep = {
       hidden = true,
       follow = true,
+      fzf_opts = {
+        ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-grep-history",
+        ["--history-size"] = "1000",
+      },
+    },
+    live_grep = {
+      fzf_opts = {
+        ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-grep-history",
+        ["--history-size"] = "1000",
+      },
     },
   },
   config = function(_, opts)
