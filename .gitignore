@@ -1,6 +1,7 @@
 .DS_Store
 *.log
 *.tmp
+*lazy-lock.json
 
 # nvim runtime/cache/state 不应该放配置仓库
 nvim/.config/nvim/.netrwhist
