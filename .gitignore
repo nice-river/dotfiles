@@ -6,3 +6,5 @@
 nvim/.config/nvim/.netrwhist
 nvim/.config/nvim/plugin/
 nvim/.config/nvim/spell/*.add.spl
+
+*lazy-lock.json

@@ -19,6 +19,22 @@ function M.on_attach()
         })
       end
 
+      if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, bufnr) then
+        local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
+
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+          group = group,
+          buffer = bufnr,
+          callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+          group = group,
+          buffer = bufnr,
+          callback = vim.lsp.buf.clear_references,
+        })
+      end
+
       local map = function(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, {
           buffer = bufnr,
