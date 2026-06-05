@@ -105,3 +105,33 @@
 (with-eval-after-load 'apheleia
   (setf (alist-get 'python-mode apheleia-mode-alist) 'ruff-format)
   (setf (alist-get 'python-ts-mode apheleia-mode-alist) 'ruff-format))
+
+;;; Rust configuration — rust-analyzer
+
+;; Use rust-analyzer as the Rust LSP server
+(with-eval-after-load 'eglot
+  (setf (alist-get 'rust-mode eglot-server-programs)
+        '("rust-analyzer"))
+  (setf (alist-get 'rust-ts-mode eglot-server-programs)
+        '("rust-analyzer")))
+
+;; rust-analyzer LSP settings
+(with-eval-after-load 'rust-mode
+  (add-hook 'rust-mode-hook
+            (lambda ()
+              (setq-local eglot-workspace-configuration
+                          '(:rust-analyzer
+                            (:check (:command "clippy"
+                                     :extraArgs ["--"]
+                                     :allTargets t)
+                             :cargo (:allTargets t)))))))
+
+;; Rustfmt as the formatter (requires :editor format)
+(set-formatter! 'rustfmt
+  '("rustfmt" "--emit" "stdout")
+  :modes '(rust-mode rust-ts-mode))
+
+;; Make rustfmt the default formatter for Rust
+(with-eval-after-load 'apheleia
+  (setf (alist-get 'rust-mode apheleia-mode-alist) 'rustfmt)
+  (setf (alist-get 'rust-ts-mode apheleia-mode-alist) 'rustfmt))
