@@ -11,8 +11,8 @@ return {
         "basedpyright",
         "ruff",
         "emmylua_ls",
-        "sylua",
-        "rust-analyzer",
+        "stylua",
+        "rust_analyzer",
       },
       automatic_installation = true,
     })
