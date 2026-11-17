@@ -26,3 +26,4 @@ export CLAUDE_CODE_SUBAGENT_MODEL=deepseek-v4-flash
 export CLAUDE_CODE_EFFORT_LEVEL=max
 
 starship init fish | source
+set -gx XDG_RUNTIME_DIR /mnt/wslg/runtime-dir
