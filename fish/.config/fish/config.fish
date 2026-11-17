@@ -9,11 +9,11 @@ if test (uname) = Darwin
   /opt/homebrew/bin/brew shellenv | source
 end
 
-alias ls='eza -lh --icons'
-alias ll='eza -lh --icons'
-alias la='eza -lah --icons'
+alias ls='eza -lh --icons auto'
+alias ll='eza -lh --icons auto'
+alias la='eza -lah --icons auto'
 alias dotfiles="cd ~/.config/dotfiles/"
-export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 # deep seek api config, https://api-docs.deepseek.com/quick_start/agent_integrations/claude_code
 export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
